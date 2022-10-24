@@ -1,25 +1,24 @@
-// Test.cpp : Ce fichier contient la fonction 'main'. L'exécution du programme commence et se termine à cet endroit.
-//
+// Test.cpp : Ce fichier contient la fonction 'main'. L'exécution du programme commence et se termine à cet endroit...
 
 #include <iostream>
 #include <string>
 #include <random>
 using namespace std;
 
-int miser(int * money) {
-	int mise = 0;
-	while (mise < 1 or mise > *money)
+int bet(int * money) {
+	int betValue = 0;
+	while (betValue < 1 or betValue > *money)
 	{
 		cout << "Choisissez votre mise : ";
-		cin >> mise;
+		cin >> betValue;
 	}
-	return mise;
+	return betValue;
 }
 
 void roulette(int * money)
 {
 	cout << "Bienvenue au jeu de la roulette !\n";
-	int mise = miser(money);
+	int betValue = bet(money);
 
 	int choice = -1;
 	while (choice < 1 or choice > 2)
@@ -27,38 +26,37 @@ void roulette(int * money)
 		cout << "Sur quoi vous souhaitez parier ?\n1. Pair/Impair\n2. Numéro";
 		cin >> choice;
 	}
-	int number = rand() % (100 - 0 + 1);
+	int randNumber = rand() % (100 - 0 + 1);
 	if (choice == 1)
 	{
-		int numero = -1;
-		while (numero < 1 or numero > 2)
+		int betValue = -1;
+		while (betValue < 1 or betValue > 2)
 		{
 			cout << "Sur quoi pariez-vous ?\n1. Pair\n2. Impair";
-			cin >> numero;
+			cin >> betValue;
 		}
-		if ((number % 2 == 0 and numero == 1) or (number % 2 == 1 and numero == 2))
+		if ((randNumber % 2 == 0 and betValue == 1) or (randNumber % 2 == 1 and betValue == 2))
 		{
-			*money += mise * 1.2;
-			cout << "La boule tourne...\n et s'arrête sur le " << number << ".\nVous gagnez: " << mise * 1.2 << "$ !\n";
+			*money += betValue * 1.2;
+			cout << "La boule tourne...\n et s'arrête sur le " << randNumber << ".\nVous gagnez: " << betValue * 1.2 << "$ !\n";
 		}
 		else
 		{
-			*money -= mise;
-			cout << "La boule tourne...\n et s'arrête sur le " << number << " C'est perdu...";
+			*money -= betValue;
+			cout << "La boule tourne...\n et s'arrête sur le " << randNumber << " C'est perdu...";
 		}
 	}
 	else
 	{
-		int numero = -1;
-		while (numero < 0 and numero > 100)
+		int betNumber = -1;
+		while (betNumber < 0 and betNumber > 100)
 		{
-			cin >> numero;
+			cin >> betNumber;
 		}
-		if (number == numero)
+		if (randNumber == betNumber)
 		{
-			*money += mise * 5;
-			cout << "La boule tourne...\n et s'arrête sur le " << number << " C'est votre numéro !!!\nVous gagnez: " << mise*5 << "$ !\n";
-
+			*money += betValue * 5;
+			cout << "La boule tourne...\n et s'arrête sur le " << randNumber << " C'est votre numéro !!!\nVous gagnez: " << betValue *5 << "$ !\n";
 		}
 	}
 }
@@ -67,21 +65,21 @@ void intalea(int * money)
 {
 	cout << "Bienvenue au jeu du nombre aléatoire !\n";
 
-	int mise = miser(money);
+	int mise = bet(money);
 
-	int number = rand() % (100 - 0 + 1);
-	int answer = -1;
+	int randNumber = rand() % (100 - 0 + 1);
+	int number = -1;
 	int attempt = 0;
-	while (number != answer)
+	while (number != randNumber)
 	{
 		cout << "Entrez une valeur entre 0 et 100: ";
 		attempt++;
-		cin >> answer;
-		if (answer > number)
+		cin >> randNumber;
+		if (randNumber > number)
 		{
 			cout << "Ce nombre est trop grand !\n";
 		}
-		else if (answer < number)
+		else if (randNumber < number)
 		{
 			cout << "Ce nombre est trop petit !\n";
 		}
@@ -90,7 +88,7 @@ void intalea(int * money)
 			break;
 		}
 	}
-	if (number == answer)
+	if (number == randNumber)
 	{
 		*money += mise * (0.2 * (6 - attempt));
 		cout << "Bravo vous avez trouvé en " << attempt << " essais !\n";
